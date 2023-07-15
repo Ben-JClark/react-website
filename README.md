@@ -16,7 +16,7 @@ npm install
 ```
 npm start
 ```
-3. In a web browser navigate to 
+3. In your web browser navigate to 
 ```
 http://localhost:3000/
 ```
