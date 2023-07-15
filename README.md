@@ -20,3 +20,9 @@ npm start
 ```
 http://localhost:3000/
 ```
+# issues
+LF line endings (suitable for Linux and macOS) have been enabled as
+```
+git config --global core.autocrlf input
+```
+This may cause issues for windows users/developers.
