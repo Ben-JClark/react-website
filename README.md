@@ -5,7 +5,7 @@ UOW Web Development paper for third year students. The fourth assignment tasked 
 Node.js
 
 # run
-1. clone the repository
+1. Clone the repository
 ```
 git clone https://github.com/Ben-JClark/react-website.git
 ```
@@ -16,7 +16,7 @@ npm install
 ```
 npm start
 ```
-3. in a web browser navigate to 
+3. In a web browser navigate to 
 ```
 http://localhost:3000/
 ```
