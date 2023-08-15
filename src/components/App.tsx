@@ -1,12 +1,15 @@
 import "../css/App.css";
-import React, { useEffect, useState } from "react";
-import { without } from "lodash";
+import { useEffect, useState } from "react";
+// import { without } from "lodash";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 
 import ListProjects from "./ProjectList";
 import DropDownButton from "./DropDown";
 import AddProjects from "./AddProject";
+
+// Interfaces
+import { ProjectProps } from "./AddProject";
 
 const App = () => {
   //State that contain the project list
@@ -18,15 +21,15 @@ const App = () => {
   const handleShow = () => setShow(true);
 
   //Copy the current project list and add project, then set it again
-  const addProject = (project) => {
+  const addProject = (project: ProjectProps) => {
     setProjectList((prevProjects) => [project, ...prevProjects]);
   };
 
   //Copy the current project list without project and set it again
-  const deleteProject = (project) => {
+  /* const deleteProject = (project) => {
     const newProjectList = without(projectList, project);
     setProjectList(newProjectList);
-  };
+  }; */
 
   //Receive the request to filter by name ascending
   const nameAsc = () => {
@@ -98,7 +101,12 @@ const App = () => {
       />
       <br></br>
       <div>
-        <ListProjects projects={projectList} deleteHandler={deleteProject} />
+        <ListProjects
+          projects={projectList}
+          deleteHandler={
+            console.log("Implement delete code here") /* deleteProject */
+          }
+        />
       </div>
       <div>
         <AddProjects

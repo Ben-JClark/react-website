@@ -1,10 +1,15 @@
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-import React, { useRef } from "react";
+import { useRef } from "react";
 import Button from "react-bootstrap/Button";
 
+export interface ProjectProps {
+  isVisable: boolean | undefined;
+  onClose: () => void;
+}
+
 // Displays A Bootstrap Modal contains a form to submit form information
-const AddProjects = (props) => {
+const AddProjects = ({ isVisable, onClose }: ProjectProps) => {
   //references to all the textboxes in the form
   const projectIDRef = useRef(null);
   const projectNameRef = useRef(null);
@@ -13,7 +18,7 @@ const AddProjects = (props) => {
   const projectEndRef = useRef(null);
 
   //When the form is submitted handle adding a new project to the list
-  const handleAdd = (e) => {
+  /*   const handleAdd = (e: React.MouseEventHandler<HTMLButtonElement>) => {
     e.preventDefault();
     console.log("Adding project");
 
@@ -27,10 +32,10 @@ const AddProjects = (props) => {
     };
 
     //toggle the form to be hidden
-    props.handleClose();
+    onClose();
     //add the project to the list
-    props.addProject(newProject);
-  };
+    // onShow();
+  }; */
 
   //Return a bootstrap modal contianing a form to update the project list
   return (
@@ -39,7 +44,7 @@ const AddProjects = (props) => {
         className="modal show"
         style={{ display: "block", position: "initial" }}
       >
-        <Modal show={props.show} onHide={props.handleClose}>
+        <Modal show={isVisable} onHide={onClose}>
           <Modal.Header>
             <Modal.Title>Add Project</Modal.Title>
           </Modal.Header>
@@ -88,12 +93,12 @@ const AddProjects = (props) => {
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={props.handleClose}>
+            <Button variant="secondary" onClick={onClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleAdd}>
+            {/* <Button variant="primary" onClick={handleAdd}>
               Add Project
-            </Button>
+            </Button> */}
           </Modal.Footer>
         </Modal>
       </div>
