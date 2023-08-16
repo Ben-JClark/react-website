@@ -3,9 +3,14 @@ import Modal from "react-bootstrap/Modal";
 import { useRef } from "react";
 import Button from "react-bootstrap/Button";
 
-export interface ProjectProps {
+export interface AddProjectProps {
+  addProject: (p: project)
   isVisable: boolean | undefined;
   onClose: () => void;
+}
+
+interface ProjectProps{
+  
 }
 
 // Displays A Bootstrap Modal contains a form to submit form information
