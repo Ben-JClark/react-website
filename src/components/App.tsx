@@ -8,12 +8,17 @@ import ListProjects from "./ProjectList";
 import DropDownButton from "./DropDown";
 import AddProjects from "./AddProject";
 
-// Interfaces
-import { ProjectProps } from "./AddProject";
+interface Project {
+  projectName: string;
+  projectIdentifier: string;
+  description: string;
+  start_date: string;
+  end_date: string;
+}
 
 const App = () => {
   //State that contain the project list
-  const [projectList, setProjectList] = useState([]);
+  const [projectList, setProjectList] = useState<Project[]>([]);
 
   //States for showing and closing the form
   const [show, setShow] = useState(false);
@@ -21,7 +26,7 @@ const App = () => {
   const handleShow = () => setShow(true);
 
   //Copy the current project list and add project, then set it again
-  const addProject = (project: ProjectProps) => {
+  const addProject = (project: Project) => {
     setProjectList((prevProjects) => [project, ...prevProjects]);
   };
 
@@ -72,7 +77,7 @@ const App = () => {
         const data = await res.json();
 
         //FOREACH project with a unique id add it to projectList
-        const list = data.map((project) => {
+        const list: Project[] = data.map((project: Project) => {
           return project;
         });
 
