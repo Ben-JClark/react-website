@@ -1,13 +1,15 @@
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 
+import { Project } from "./App";
+
 interface ProjectListProps {
-  projectList: never[];
-  deleteHandler: () => void;
+  projectList: Project[];
+  deleteHandler: (project: Project) => void;
 }
 
 //Add The form to the page as a list
-const ListProjects = ({ deleteHandler, projectList }: ProjectListProps) => {
+const ListProjects = ({ projectList, deleteHandler }: ProjectListProps) => {
   return (
     <div>
       {projectList.map((project: any) => (
@@ -25,7 +27,7 @@ const ListProjects = ({ deleteHandler, projectList }: ProjectListProps) => {
             </Card.Text>
             <Button
               variant="primary"
-              onClick={deleteHandler /* () => props.deleteHandler(project) */}
+              onClick={() => deleteHandler(project.projectIdentifier)}
             >
               Remove
             </Button>

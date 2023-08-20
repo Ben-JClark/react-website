@@ -1,4 +1,3 @@
-import "../css/App.css";
 import { useEffect, useState } from "react";
 // import { without } from "lodash";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -8,7 +7,7 @@ import ListProjects from "./ProjectList";
 import DropDownButton from "./DropDown";
 import AddProjects from "./AddProject";
 
-interface Project {
+export interface Project {
   projectName: string;
   projectIdentifier: string;
   description: string;
@@ -21,7 +20,7 @@ const App = () => {
   const [projectList, setProjectList] = useState<Project[]>([]);
 
   //States for showing and closing the form
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState<boolean>(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -31,10 +30,12 @@ const App = () => {
   };
 
   //Copy the current project list without project and set it again
-  /* const deleteProject = (project) => {
-    const newProjectList = without(projectList, project);
+  const deleteProject = (project: Project) => {
+    const newProjectList = projectList.filter((item) => {
+      return item != project;
+    });
     setProjectList(newProjectList);
-  }; */
+  };
 
   //Receive the request to filter by name ascending
   const nameAsc = () => {
@@ -106,12 +107,7 @@ const App = () => {
       />
       <br></br>
       <div>
-        <ListProjects
-          projects={projectList}
-          deleteHandler={
-            console.log("Implement delete code here") /* deleteProject */
-          }
-        />
+        <ListProjects projectList={projectList} deleteHandler={deleteProject} />
       </div>
       <div>
         <AddProjects
