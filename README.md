@@ -40,8 +40,3 @@ npm startv
 ```
 http://localhost:3000/
 ```
-
-# issues
-
-App.tsx is only partly converted and produces errors
-AddProject.tsx has incorrect interfaces implemented
