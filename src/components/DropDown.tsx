@@ -1,7 +1,19 @@
 import Dropdown from "react-bootstrap/Dropdown";
 
+export interface DropDownProps {
+  nameAsc: () => void;
+  nameDsc: () => void;
+  dateAsc: () => void;
+  dateDsc: () => void;
+}
+
 //Display the Drop down button where you can choose your filter options
-const DropDownButton = (props) => {
+const DropDownButton = ({
+  nameAsc,
+  nameDsc,
+  dateAsc,
+  dateDsc,
+}: DropDownProps) => {
   return (
     <Dropdown>
       <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -9,16 +21,16 @@ const DropDownButton = (props) => {
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        <Dropdown.Item onClick={() => props.nameAsc()}>
+        <Dropdown.Item onClick={() => nameAsc()}>
           Name - ascending
         </Dropdown.Item>
-        <Dropdown.Item onClick={() => props.nameDsc()}>
+        <Dropdown.Item onClick={() => nameDsc()}>
           Name - descending
         </Dropdown.Item>
-        <Dropdown.Item onClick={() => props.dateAsc()}>
+        <Dropdown.Item onClick={() => dateAsc()}>
           Date - ascending
         </Dropdown.Item>
-        <Dropdown.Item onClick={() => props.dateDsc()}>
+        <Dropdown.Item onClick={() => dateDsc()}>
           Date - descending
         </Dropdown.Item>
       </Dropdown.Menu>

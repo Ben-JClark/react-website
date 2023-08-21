@@ -1,6 +1,5 @@
-import "../css/App.css";
-import React, { useEffect, useState } from "react";
-import { without } from "lodash";
+import { useEffect, useState } from "react";
+// import { without } from "lodash";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 
@@ -8,23 +7,33 @@ import ListProjects from "./ProjectList";
 import DropDownButton from "./DropDown";
 import AddProjects from "./AddProject";
 
+export interface Project {
+  projectName: string;
+  projectIdentifier: string;
+  description: string;
+  start_date: string;
+  end_date: string;
+}
+
 const App = () => {
   //State that contain the project list
-  const [projectList, setProjectList] = useState([]);
+  const [projectList, setProjectList] = useState<Project[]>([]);
 
   //States for showing and closing the form
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState<boolean>(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   //Copy the current project list and add project, then set it again
-  const addProject = (project) => {
+  const addProject = (project: Project) => {
     setProjectList((prevProjects) => [project, ...prevProjects]);
   };
 
   //Copy the current project list without project and set it again
-  const deleteProject = (project) => {
-    const newProjectList = without(projectList, project);
+  const deleteProject = (project: Project) => {
+    const newProjectList = projectList.filter((item) => {
+      return item != project;
+    });
     setProjectList(newProjectList);
   };
 
@@ -69,7 +78,7 @@ const App = () => {
         const data = await res.json();
 
         //FOREACH project with a unique id add it to projectList
-        const list = data.map((project) => {
+        const list: Project[] = data.map((project: Project) => {
           return project;
         });
 
@@ -98,7 +107,7 @@ const App = () => {
       />
       <br></br>
       <div>
-        <ListProjects projects={projectList} deleteHandler={deleteProject} />
+        <ListProjects projectList={projectList} deleteHandler={deleteProject} />
       </div>
       <div>
         <AddProjects
