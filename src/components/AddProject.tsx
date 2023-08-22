@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 
 import { Project } from "./App";
 
+// TODO: refactor props, too many states
 interface AddProjectProps {
   addProject: (p: Project) => void;
   show: boolean;
