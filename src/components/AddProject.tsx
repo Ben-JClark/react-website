@@ -5,12 +5,9 @@ import Button from "react-bootstrap/Button";
 
 import { Project } from "./App";
 
-// TODO: refactor props, too many states
 interface AddProjectProps {
   addProject: (p: Project) => void;
   show: boolean;
-  setShow: (showing: boolean) => void;
-  handleShow: () => void;
   handleClose: () => void;
 }
 
@@ -50,25 +47,14 @@ const AddProjects = ({ addProject, show, handleClose }: AddProjectProps) => {
   };
 
   const isInputValid = (): boolean => {
-    // Invalid ID input
-    if (!projectIDRef.current) {
-      // TODO: display error
-      return false;
-    }
-    // Invalid Name input
-    else if (!projectNameRef.current) {
-      // TODO: display error
-      return false;
-    } else if (!projectDscrRef.current) {
-      // TODO: display error
-      return false;
-    } else if (!projectStartRef.current) {
-      // TODO: display error
-      return false;
-    } else if (!projectEndRef.current) {
-      // TODO: display error
-      return false;
-    }
+    // TODO: validate input with regular expressions
+
+    if (!projectIDRef.current) return false;
+    else if (!projectNameRef.current) return false;
+    else if (!projectDscrRef.current) return false;
+    else if (!projectStartRef.current) return false;
+    else if (!projectEndRef.current) return false;
+
     return true;
   };
 
@@ -132,11 +118,7 @@ const AddProjects = ({ addProject, show, handleClose }: AddProjectProps) => {
               Close
             </Button>
             {
-              <Button
-                variant="primary"
-                //disabled={!isInputValid()}
-                onClick={handleAdd}
-              >
+              <Button variant="primary" onClick={handleAdd}>
                 Add Project
               </Button>
             }

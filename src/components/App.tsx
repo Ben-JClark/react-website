@@ -113,8 +113,6 @@ const App = () => {
         <AddProjects
           addProject={addProject}
           show={show}
-          setShow={setShow}
-          handleShow={handleShow}
           handleClose={handleClose}
         />
       </div>
