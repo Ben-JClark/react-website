@@ -19,16 +19,13 @@ const ListProjects = ({ projectList, deleteHandler }: ProjectListProps) => {
           </Card.Header>
           <Card.Body>
             <Card.Title className="displayTitle">
-              {project.projectName}
+              ID: {project.projectIdentifier} {project.projectName}
             </Card.Title>
             <Card.Text className="displaySub">
               {project.description} <br></br>
               Ends on {project.end_date}
             </Card.Text>
-            <Button
-              variant="primary"
-              onClick={() => deleteHandler(project.projectIdentifier)}
-            >
+            <Button variant="primary" onClick={() => deleteHandler(project)}>
               Remove
             </Button>
           </Card.Body>

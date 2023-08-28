@@ -9,15 +9,17 @@ import AddProjects from "./AddProject";
 
 export interface Project {
   projectName: string;
-  projectIdentifier: string;
+  projectIdentifier?: string;
   description: string;
   start_date: string;
   end_date: string;
 }
 
 const App = () => {
-  //State that contain the project list
+  // State that contains the project list
   const [projectList, setProjectList] = useState<Project[]>([]);
+  // Keeps track of the number of states
+  const [projectCount, setProjectCount] = useState<number>(0);
 
   //States for showing and closing the form
   const [show, setShow] = useState<boolean>(false);
@@ -26,6 +28,10 @@ const App = () => {
 
   //Copy the current project list and add project, then set it again
   const addProject = (project: Project) => {
+    // Add the project ID
+    project.projectIdentifier = projectCount.toString();
+    setProjectCount((prevCount) => prevCount + 1);
+
     setProjectList((prevProjects) => [project, ...prevProjects]);
   };
 
@@ -84,6 +90,10 @@ const App = () => {
 
         //Update the projectList to the list of data obtained from data.json
         setProjectList(list);
+
+        // Increment the project count by the number of projects read from the json file
+        setProjectCount(list.length);
+
         return data;
       } catch (error) {
         alert("Cannot fetch project data");

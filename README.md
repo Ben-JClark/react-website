@@ -8,6 +8,7 @@ After the assignment was submitted and marked the following changes have been ma
 
 - Moving components out of App.js into seperate .js files
 - Converting the project to typescript
+- Removed manually entering project ID's when adding new projects
 
 # required installs
 

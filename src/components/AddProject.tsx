@@ -14,7 +14,6 @@ interface AddProjectProps {
 // Displays A Bootstrap Modal contains a form to submit form information
 const AddProjects = ({ addProject, show, handleClose }: AddProjectProps) => {
   //references to all the textboxes in the form
-  const projectIDRef = useRef<HTMLInputElement | null>(null);
   const projectNameRef = useRef<HTMLInputElement | null>(null);
   const projectDscrRef = useRef<HTMLInputElement | null>(null);
   const projectStartRef = useRef<HTMLInputElement | null>(null);
@@ -30,7 +29,6 @@ const AddProjects = ({ addProject, show, handleClose }: AddProjectProps) => {
       //Create a new project using the textbox input
       // WARING '!' supresses typescript warings for null types
       let newProject: Project = {
-        projectIdentifier: projectIDRef.current!.value,
         projectName: projectNameRef.current!.value,
         description: projectDscrRef.current!.value,
         start_date: projectStartRef.current!.value,
@@ -48,9 +46,7 @@ const AddProjects = ({ addProject, show, handleClose }: AddProjectProps) => {
 
   const isInputValid = (): boolean => {
     // TODO: validate input with regular expressions
-
-    if (!projectIDRef.current) return false;
-    else if (!projectNameRef.current) return false;
+    if (!projectNameRef.current) return false;
     else if (!projectDscrRef.current) return false;
     else if (!projectStartRef.current) return false;
     else if (!projectEndRef.current) return false;
@@ -71,14 +67,6 @@ const AddProjects = ({ addProject, show, handleClose }: AddProjectProps) => {
           </Modal.Header>
           <Modal.Body>
             <Form>
-              <Form.Group className="mb-3" controlId="formId">
-                <Form.Label>Project ID</Form.Label>
-                <Form.Control
-                  type="text"
-                  ref={projectIDRef}
-                  placeholder="e.g. 17"
-                />
-              </Form.Group>
               <Form.Group className="mb-3" controlId="formName">
                 <Form.Label>Project Name</Form.Label>
                 <Form.Control
