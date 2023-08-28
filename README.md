@@ -32,11 +32,7 @@ npm i bootstrap@latest
 ```
 
 ```
-npm startv
+npm run dev
 ```
 
-3. In your web browser navigate to
-
-```
-http://localhost:3000/
-```
+3. Open the link to the local running instance displayed in the terminal
