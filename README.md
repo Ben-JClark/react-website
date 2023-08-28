@@ -21,7 +21,7 @@ Node.js
 git clone https://github.com/Ben-JClark/react-website.git
 ```
 
-2. In a terminal navigate to the "REACT-WEBSITE/code/" directory and run the commands
+2. In a terminal navigate to the "react-website/" directory and run the commands
 
 ```
 npm install
