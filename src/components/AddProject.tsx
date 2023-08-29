@@ -40,16 +40,34 @@ const AddProjects = ({ addProject, show, handleClose }: AddProjectProps) => {
       //add the project to the list
       addProject(newProject);
     } else {
+      // TODO: Provide more useful error messages
       console.log("Invalid input");
+      alert("Invalid input");
     }
   };
 
+  // TODO: fix validation, so far it doesn't allow the user to enter anything
   const isInputValid = (): boolean => {
-    // TODO: validate input with regular expressions
-    if (!projectNameRef.current) return false;
-    else if (!projectDscrRef.current) return false;
-    else if (!projectStartRef.current) return false;
-    else if (!projectEndRef.current) return false;
+    const textRegex = /^[a-zA-Z0-9 ]+$/; // Only letter, numbers and spaces
+    const dateRegex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/;
+
+    if (!projectNameRef.current || textRegex.test(projectNameRef.current.value))
+      return false;
+    else if (
+      !projectDscrRef.current ||
+      textRegex.test(projectDscrRef.current.value)
+    )
+      return false;
+    else if (
+      !projectStartRef.current ||
+      dateRegex.test(projectStartRef.current.value)
+    )
+      return false;
+    else if (
+      !projectEndRef.current ||
+      dateRegex.test(projectEndRef.current.value)
+    )
+      return false;
 
     return true;
   };
@@ -73,6 +91,7 @@ const AddProjects = ({ addProject, show, handleClose }: AddProjectProps) => {
                   type="text"
                   ref={projectNameRef}
                   placeholder="e.g. SQL Database"
+                  maxLength={50}
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formDscr">
@@ -81,6 +100,7 @@ const AddProjects = ({ addProject, show, handleClose }: AddProjectProps) => {
                   type="text"
                   ref={projectDscrRef}
                   placeholder="e.g. Stores user data"
+                  maxLength={100}
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formStart">
@@ -89,6 +109,7 @@ const AddProjects = ({ addProject, show, handleClose }: AddProjectProps) => {
                   type="text"
                   ref={projectStartRef}
                   placeholder="YYYY-MM-DD HH:MM:SS"
+                  maxLength={19}
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formEnd">
@@ -97,6 +118,7 @@ const AddProjects = ({ addProject, show, handleClose }: AddProjectProps) => {
                   type="text"
                   ref={projectEndRef}
                   placeholder="YYYY-MM-DD HH:MM:SS"
+                  maxLength={19}
                 />
               </Form.Group>
             </Form>
