@@ -23,6 +23,7 @@ const AddProjects = ({ addProject, show, handleClose }: AddProjectProps) => {
   const handleAdd = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
+    // Check input isn't null and input contain the correct characters
     if (isInputValid()) {
       console.log("Adding project");
 
@@ -46,26 +47,31 @@ const AddProjects = ({ addProject, show, handleClose }: AddProjectProps) => {
     }
   };
 
-  // TODO: fix validation, so far it doesn't allow the user to enter anything
   const isInputValid = (): boolean => {
-    const textRegex = /^[a-zA-Z0-9 ]+$/; // Only letter, numbers and spaces
+    // Regex only returns true if the characters only contain letters, numbers, or spaces. Must be at least length 1.
+    const textRegex = /^[a-zA-Z0-9 ]+$/;
+    // TODO: validate date and time
+    // Regex for the input
     const dateRegex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/;
 
-    if (!projectNameRef.current || textRegex.test(projectNameRef.current.value))
-      return false;
-    else if (
-      !projectDscrRef.current ||
-      textRegex.test(projectDscrRef.current.value)
+    if (
+      projectNameRef.current == null ||
+      !textRegex.test(projectNameRef.current.value)
     )
       return false;
     else if (
-      !projectStartRef.current ||
-      dateRegex.test(projectStartRef.current.value)
+      projectDscrRef.current == null ||
+      !textRegex.test(projectDscrRef.current.value)
     )
       return false;
     else if (
-      !projectEndRef.current ||
-      dateRegex.test(projectEndRef.current.value)
+      projectStartRef.current == null ||
+      !dateRegex.test(projectStartRef.current.value)
+    )
+      return false;
+    else if (
+      projectEndRef.current == null ||
+      !dateRegex.test(projectEndRef.current.value)
     )
       return false;
 
