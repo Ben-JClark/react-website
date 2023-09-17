@@ -1,9 +1,10 @@
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Button from "react-bootstrap/Button";
 
 import { Project } from "./App";
+import DateTimePicker from "./DateTimePicker";
 
 interface AddProjectProps {
   addProject: (p: Project) => void;
@@ -13,11 +14,12 @@ interface AddProjectProps {
 
 // Displays A Bootstrap Modal contains a form to submit form information
 const AddProjects = ({ addProject, show, handleClose }: AddProjectProps) => {
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
+
   //references to all the textboxes in the form
   const projectNameRef = useRef<HTMLInputElement | null>(null);
   const projectDscrRef = useRef<HTMLInputElement | null>(null);
-  const projectStartRef = useRef<HTMLInputElement | null>(null);
-  const projectEndRef = useRef<HTMLInputElement | null>(null);
 
   //When the form is submitted handle adding a new project to the list
   const handleAdd = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -28,12 +30,11 @@ const AddProjects = ({ addProject, show, handleClose }: AddProjectProps) => {
       console.log("Adding project");
 
       //Create a new project using the textbox input
-      // WARING '!' supresses typescript warings for null types
       let newProject: Project = {
         projectName: projectNameRef.current!.value,
         description: projectDscrRef.current!.value,
-        start_date: projectStartRef.current!.value,
-        end_date: projectEndRef.current!.value,
+        start_date: startDate!,
+        end_date: endDate!,
       };
 
       //toggle the form to be hidden
@@ -43,39 +44,47 @@ const AddProjects = ({ addProject, show, handleClose }: AddProjectProps) => {
     } else {
       // TODO: Provide more useful error messages
       console.log("Invalid input");
-      alert("Invalid input");
     }
   };
 
+  /**
+   * Checks that the user has filled out the Add Project form correctly
+   * @returns True if the input is valid, else false.
+   */
   const isInputValid = (): boolean => {
     // Regex only returns true if the characters only contain letters, numbers, or spaces. Must be at least length 1.
     const textRegex = /^[a-zA-Z0-9 ]+$/;
-    // TODO: validate date and time
-    // Regex for the input
-    const dateRegex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/;
 
+    // Check the project name is valid and not empty
     if (
-      projectNameRef.current == null ||
-      !textRegex.test(projectNameRef.current.value)
-    )
-      return false;
-    else if (
-      projectDscrRef.current == null ||
-      !textRegex.test(projectDscrRef.current.value)
-    )
-      return false;
-    else if (
-      projectStartRef.current == null ||
-      !dateRegex.test(projectStartRef.current.value)
-    )
-      return false;
-    else if (
-      projectEndRef.current == null ||
-      !dateRegex.test(projectEndRef.current.value)
-    )
-      return false;
-
-    return true;
+      projectNameRef.current != null &&
+      textRegex.test(projectNameRef.current.value)
+    ) {
+      // Check the project description is valid and not empty
+      if (
+        projectDscrRef.current != null &&
+        textRegex.test(projectDscrRef.current.value)
+      ) {
+        // Check the start and end dates aren't empty
+        if (startDate != null && endDate != null) {
+          // Check the start date comes before the end date
+          if (startDate <= endDate) {
+            return true;
+          } else {
+            alert("Please choose a start date that comes before an end date");
+          }
+        } else {
+          alert("Please enter a Start Date and End Date");
+        }
+      } else {
+        alert(
+          "Please enter a Project Description consisting of letters and numbers"
+        );
+      }
+    } else {
+      alert("Please enter a Project Name consisting of letters and numbers");
+    }
+    return false;
   };
 
   //Return a bootstrap modal contianing a form to update the project list
@@ -110,21 +119,19 @@ const AddProjects = ({ addProject, show, handleClose }: AddProjectProps) => {
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formStart">
-                <Form.Label>Project Start Date</Form.Label>
-                <Form.Control
-                  type="text"
-                  ref={projectStartRef}
-                  placeholder="YYYY-MM-DD HH:MM:SS"
-                  maxLength={19}
+                <DateTimePicker
+                  label="Project Start Date"
+                  name="endTimePicker"
+                  selected={startDate}
+                  onChange={setStartDate}
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formEnd">
-                <Form.Label>Project End Date</Form.Label>
-                <Form.Control
-                  type="text"
-                  ref={projectEndRef}
-                  placeholder="YYYY-MM-DD HH:MM:SS"
-                  maxLength={19}
+                <DateTimePicker
+                  label="Project End Date"
+                  name="startTimePicker"
+                  selected={endDate}
+                  onChange={setEndDate}
                 />
               </Form.Group>
             </Form>

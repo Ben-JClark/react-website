@@ -11,8 +11,8 @@ export interface Project {
   projectName: string;
   projectIdentifier?: string;
   description: string;
-  start_date: string;
-  end_date: string;
+  start_date: Date;
+  end_date: Date;
 }
 
 const App = () => {
@@ -61,16 +61,16 @@ const App = () => {
 
   //Receive the request to filter by date ascending
   const dateAsc = () => {
-    const sortedData = [...projectList].sort((p1, p2) =>
-      p2.start_date.localeCompare(p1.start_date)
+    const sortedData = [...projectList].sort(
+      (p1, p2) => p1.start_date.getTime() - p2.start_date.getTime()
     );
     setProjectList(sortedData);
   };
 
   //Receive the request to filter by date descending
   const dateDsc = () => {
-    const sortedData = [...projectList].sort((p1, p2) =>
-      p1.start_date.localeCompare(p2.start_date)
+    const sortedData = [...projectList].sort(
+      (p1, p2) => p2.start_date.getTime() - p1.start_date.getTime()
     );
     setProjectList(sortedData);
   };
@@ -84,8 +84,14 @@ const App = () => {
         const data = await res.json();
 
         //FOREACH project with a unique id add it to projectList
-        const list: Project[] = data.map((project: Project) => {
-          return project;
+        const list: Project[] = data.map((projectData: Project) => {
+          return {
+            projectName: new String(projectData.projectName),
+            projectIdentifier: new String(projectData.projectIdentifier),
+            description: new String(projectData.description),
+            start_date: new Date(projectData.start_date),
+            end_date: new Date(projectData.end_date),
+          };
         });
 
         //Update the projectList to the list of data obtained from data.json
