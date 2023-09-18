@@ -6,7 +6,7 @@ A University of Waikato Web Development paper for third year students. The fourt
 
 [http://bensweb.click/react-website/](http://bensweb.click/react-website/)
 
-## modifications after submission
+## Modifications
 
 After the assignment was submitted and marked the following changes have been made
 
