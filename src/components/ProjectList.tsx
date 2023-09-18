@@ -10,13 +10,16 @@ interface ProjectListProps {
 
 //Add The form to the page as a list
 const ListProjects = ({ projectList, deleteHandler }: ProjectListProps) => {
-  console.log(typeof projectList);
   return (
     <div>
       {projectList.map((project: Project) => (
-        <Card className="card" key={project.projectIdentifier}>
+        <Card
+          className="card mb-3"
+          border="primary"
+          key={project.projectIdentifier}
+        >
           <Card.Header className="displayBar">
-            Started on {project.start_date.getDate()}-
+            Project starts on {project.start_date.getDate()}-
             {project.start_date.getMonth() + 1}-
             {project.start_date.getFullYear()}
           </Card.Header>
@@ -26,7 +29,7 @@ const ListProjects = ({ projectList, deleteHandler }: ProjectListProps) => {
             </Card.Title>
             <Card.Text className="displaySub">
               {project.description} <br></br>
-              Ends on {project.end_date.getDate()}-
+              Project Ends on {project.end_date.getDate()}-
               {project.end_date.getMonth() + 1}-{project.end_date.getFullYear()}
             </Card.Text>
             <Button variant="primary" onClick={() => deleteHandler(project)}>

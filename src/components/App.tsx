@@ -111,16 +111,19 @@ const App = () => {
   //return the html list of projects
   return (
     <div className="App-header">
-      <h1>Projects</h1>
+      <div style={{ textAlign: "center" }}>
+        <h1>Projects</h1>
 
-      <Button onClick={handleShow}>Add Project</Button>
-      <br></br>
-      <DropDownButton
-        nameAsc={nameAsc}
-        nameDsc={nameDsc}
-        dateAsc={dateAsc}
-        dateDsc={dateDsc}
-      />
+        <Button className="Add-Project mb-1" onClick={handleShow}>
+          Add Project
+        </Button>
+        <DropDownButton
+          nameAsc={nameAsc}
+          nameDsc={nameDsc}
+          dateAsc={dateAsc}
+          dateDsc={dateDsc}
+        />
+      </div>
       <br></br>
       <div>
         <ListProjects projectList={projectList} deleteHandler={deleteProject} />
