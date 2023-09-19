@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 // import { without } from "lodash";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
 
 import ListProjects from "./ProjectList";
 import DropDownButton from "./DropDown";
@@ -110,24 +111,30 @@ const App = () => {
 
   //return the html list of projects
   return (
-    <div className="App-header">
-      <div style={{ textAlign: "center" }}>
-        <h1>Projects</h1>
-
-        <Button className="Add-Project mb-1" onClick={handleShow}>
-          Add Project
-        </Button>
-        <DropDownButton
-          nameAsc={nameAsc}
-          nameDsc={nameDsc}
-          dateAsc={dateAsc}
-          dateDsc={dateDsc}
-        />
+    <Container>
+      <h1 style={{ textAlign: "center" }}>Projects</h1>
+      {/* Display "Add Project" and "Filter by" buttons side by side */}
+      <div className="d-flex justify-content-center">
+        <div className="mx-2">
+          <Button className="Add-Project" onClick={handleShow}>
+            Add Project
+          </Button>
+        </div>
+        <div>
+          <DropDownButton
+            nameAsc={nameAsc}
+            nameDsc={nameDsc}
+            dateAsc={dateAsc}
+            dateDsc={dateDsc}
+          />
+        </div>
       </div>
       <br></br>
+      {/* Display the list of projects */}
       <div>
         <ListProjects projectList={projectList} deleteHandler={deleteProject} />
       </div>
+      {/* Display the Form to add projects if show is true, else hide it */}
       <div>
         <AddProjects
           addProject={addProject}
@@ -135,7 +142,7 @@ const App = () => {
           handleClose={handleClose}
         />
       </div>
-    </div>
+    </Container>
   );
 };
 
